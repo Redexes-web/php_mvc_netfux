@@ -1,0 +1,48 @@
+<main class="d-flex h-100 text-center text-white bg-dark">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto mt-5 flex-column">
+
+        <div class="px-3">
+            <h1><?=$serie->get('title')?></h1>
+        </div>
+        <div class="container">
+            <div class="row bg-light text-dark rounded p-3 mx-auto my-3 align-items-center">
+                <div class="col-12">
+                    <a href="<?=$router->generateUrl('app_serie_index')?>" class="btn btn-info float-start">Retour
+                        à la
+                        liste des series</a>
+                </div>
+                <div class="col-md-5 mx-auto rounded my-3" style="width: 50vw;height:28vw">
+                    <iframe style="width: 50vw;height:28vw" class="rounded"
+                        src="https://www.youtube.com/embed/<?=$serie->get('idYoutube')?>" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+
+                </div>
+                <div class="col-12 text-start">
+                    <p>Synopsis:</p>
+                    <p class="border-dark border rounded p-2">
+                        <?=$serie->get('description')?>
+                    </p>
+                    <p>
+                        Producteur: <?=$serie->get('director')->get('firstName')?>
+                        <?=$serie->get('director')->get('lastName')?>
+                    </p>
+                    <p>
+                        Genre: <?=$serie->get('genre')->get('name')?>
+                    </p>
+                    <p>
+                        Nombre d'épiosde: <?=$serie->get('numberOfEpisodes')?>.
+                    </p>
+                    <p>
+                        Durée moyenne d'un épiosde: <?=$serie->get('episodeLength')?> minutes.
+                    </p>
+                    <?php if($user->exist()): ?>
+                    <a class="btn btn-warning w-100"
+                        href="<?=$router->generateUrl('app_serie_edit',['id' => $serie->get("id")])?>">Modifier</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,72 @@
+<main class="d-flex h-100 text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto mt-5 flex-column">
+        <?php if($messages->exist()) : ?>
+
+        <div class="alert alert-info alert-dismissible fade show col-sm-11 col-md-6 col-lg-6 col-xl-6 mx-auto"
+            role="alert">
+            <h4 class="alert-heading">Info</h4>
+            <?php foreach ($messages->getAndDelete() as $error) : ?>
+            <hr>
+            <p><?=$error?></p>
+            <?php endforeach; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+
+        <div class="px-3">
+            <h1>
+                <?php if($user->exist()): ?>
+                <a style="text-decoration:none" href="<?=$router->generateUrl('app_movie_new')?>">
+                    <i class="bi bi-patch-plus-fill"></i>
+                </a>
+                <?php endif; ?> Films
+            </h1>
+        </div>
+        <?php foreach($movies as $movie) : ?>
+        <div class="container">
+            <div class="row bg-light text-dark rounded p-3 mx-auto my-3 align-items-center">
+                <div class="col-md-3">
+                    <a style="text-decoration: none;"
+                        href="<?=$router->generateUrl('app_movie_show', ['id' => $movie->get('id')])?>">
+                        <img class="w-100" src="<?=$router->getWwwPath(). '/img/upload/' . $movie->get('picture')?>"
+                            alt="">
+                    </a>
+                </div>
+                <div class="col-md-9 text-start">
+                    <a class="nav-link" href="<?=$router->generateUrl('app_movie_show', ['id' => $movie->get('id')])?>">
+                        <h3 class="display-6"><?=$movie->get('title')?></h3>
+                    </a>
+                    <p>Synopsis:</p>
+                    <p class="border-dark border rounded p-2">
+                        <?=$movie->get('description')?>
+                    </p>
+                    <p>
+                        Producteur:
+                        <?=$movie->get('director') ? $movie->get('director')->get('firstName') . ' ' . $movie->get('director')->get('lastName') : 'Inconnu'?>
+                    </p>
+                    <p>
+                        Genre: <?=$movie->get('genre') ? $movie->get('genre')->get('name') : 'Inconnu'?>
+                    </p>
+                    <p>
+                        Durée: <?=$movie->get('length')?> minutes.
+                    </p>
+                    <p>
+                        Date de sortie:
+                        <?=$movie->get('publishedAt')? $movie->get('publishedAt')->format('m/Y'): "Inconnue"?>
+                    </p>
+                    <?php if($user->exist()): ?>
+                    <div class="col-12 d-flex justify-content-end d-flex">
+
+                        <a class="btn btn-warning "
+                            href="<?=$router->generateUrl('app_movie_edit',['id' => $movie->get("id")])?>">Modifier</a>
+
+                        <a class="btn btn-danger "
+                            href="<?=$router->generateUrl('app_movie_delete',['id' => $movie->get("id")])?>">Supprimer</a>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</main>

@@ -1,0 +1,126 @@
+<main>
+  <div class=" bg-primary text-white container text-center pt-5 pb-5 mb-3">
+    <h1>Bienvenue <?=$user->get("firstName")?> <?=$user->get("lastName")?></h1>
+  </div>
+  <ul class="list-group mx-auto text-center">
+    <li class="list-group-item"><span class="fw-bold">Adresse</span> <?=htmlspecialchars($user->get("street"))?>
+      <?=htmlspecialchars($user->get("postalCode"))?> <?=htmlspecialchars($user->get("city"))?></li>
+    <li class="list-group-item"><span class="fw-bold">Telephone Portable:</span>
+      <?=htmlspecialchars($user->get("mobilePhone"))?></li>
+    <li class="list-group-item"><span class="fw-bold">Téléphone:</span> <?=htmlspecialchars($user->get("phone"))?></li>
+    <li class="list-group-item"><span class="fw-bold">Email:</span> <?=htmlspecialchars($user->get("email"))?></li>
+  </ul>
+  <?php if($messages->exist()) : ?>
+  <div class="alert alert-danger col-sm-11 col-md-6 col-lg-6 col-xl-6 mx-auto" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="alert-heading">Des erreurs ont été détéctés</h4>
+    <?php foreach ($messages->getAndDelete() as $error) : ?>
+    <hr>
+    <p><?=htmlspecialchars($error)?></p>
+    <?php endforeach; ?>
+  </div>
+  <?php endif; ?>
+  <section id="appointement">
+    <div class="container">
+      <div class="row">
+        <div class=" jumbotron col-lg-8 mx-auto text-center">
+          <h2 class="">Rendez-vous</h2>
+          <p class="lead">Pour prendre un rendez vous pour l'un de vos animaux : </p>
+          <a class="btn btn-primary" href="">Prendre Un Rendez-vous</a>
+          <hr class="my-4 m-3">
+          <p class="lead">Pour Annuler un rendez vous de l'un de vos animaux : </p>
+          <a class="btn btn-primary" href="">Annuler Un Rendez-vous</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr class="my-4 m-3">
+  <section id="add-animal">
+    <div class="container">
+      <div class="row">
+        <div class=" jumbotron col-lg-8 mx-auto text-center">
+          <h2>Ajouter Un Animal</h2>
+          <p class="lead">Pour Ajouter un animal : </p>
+          <a class="btn btn-primary btn-block mt-3" href="<?= $router->generateUrl("app_animal_add")?>">Ajouter un
+            Animal</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr class="my-4 m-3">
+  <section id="my-animals">
+    <div class="text-center">
+      <h2>Mes Animaux</h2>
+      <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active fs-5" id="cats-tab" data-bs-toggle="tab" data-bs-target="#cats" type="button"
+            role="tab" aria-controls="cats" aria-selected="true">Chats</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link fs-5" id="dogs-tab" data-bs-toggle="tab" data-bs-target="#dogs" type="button"
+            role="tab" aria-controls="dogs" aria-selected="false">Chiens</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="cats" role="tabpanel" aria-labelledby="cats-tab">
+          <div class="container">
+            <div class="row d-flex flex-row">
+              <?php foreach ($cats as $cat) : ?>
+              <div class="card col-12 col-sm-12 col-md-6 col-lg-3">
+                <img
+                  src="<?= $router->getWwwPath()."/img/animals/".($cat->picture != null ? htmlspecialchars($cat->picture) : "defaultCat.png") ;?>"
+                  class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><?=htmlspecialchars($cat->nom)?></h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">race : <?=htmlspecialchars($cat->race)?></li>
+                  <li class="list-group-item">age : <?=htmlspecialchars($cat->age)?></li>
+                  <li class="list-group-item">taille : <?=htmlspecialchars($cat->taille)?> cm</li>
+                  <li class="list-group-item">poids : <?=htmlspecialchars($cat->poids/1000)?> Kg</li>
+                </ul>
+                <div class="card-body">
+                  <a href="<?=$router->generateUrl("app_animal_edit")."?id=".htmlspecialchars($cat->aid)?>&t=cat"
+                    class="btn btn-info align-self-end">Modifier</a>
+                  <a href="<?=$router->generateUrl("app_animal_delete")."?id=".htmlspecialchars($cat->aid)?>&t=cat"
+                    class="btn btn-danger">Supprimer</a>
+                </div>
+              </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="dogs" role="tabpanel" aria-labelledby="dogs-tab">
+          <div class="container">
+            <div class="row d-flex flex-row">
+              <?php foreach ($dogs as $dog) : ?>
+              <div class="card col-12 col-sm-12 col-md-6 col-lg-3">
+                <img
+                  src="<?= $router->getWwwPath()."/img/animals/".($dog->picture != null ? htmlspecialchars($dog->picture) : "defaultDog.png") ;?>"
+                  class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><?=$dog->nom?></h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">race : <?=htmlspecialchars($dog->race)?></li>
+                  <li class="list-group-item">age : <?=htmlspecialchars($dog->age)?></li>
+                  <li class="list-group-item">taille : <?=htmlspecialchars($dog->taille)?> cm</li>
+                  <li class="list-group-item">poids : <?=htmlspecialchars($dog->poids/1000)?> Kg</li>
+                </ul>
+                <div class="card-body">
+                  <a href="<?=$router->generateUrl("app_animal_edit")."?id=".htmlspecialchars($dog->aid)?>&t=dog"
+                    class="btn btn-info align-self-end">Modifier</a>
+                  <a href="<?=$router->generateUrl("app_animal_delete")."?id=".htmlspecialchars($dog->aid)?>&t=dog"
+                    class="btn btn-danger">Supprimer</a>
+                </div>
+              </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

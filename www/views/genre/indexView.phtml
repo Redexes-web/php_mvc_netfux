@@ -1,0 +1,46 @@
+<main class="d-flex h-100 text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto mt-5 flex-column">
+        <?php if($messages->exist()) : ?>
+
+        <div class="alert alert-info alert-dismissible fade show col-sm-11 col-md-6 col-lg-6 col-xl-6 mx-auto"
+            role="alert">
+            <h4 class="alert-heading">Info</h4>
+            <?php foreach ($messages->getAndDelete() as $error) : ?>
+            <hr>
+            <p><?=$error?></p>
+            <?php endforeach; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+
+        <div class="px-3">
+            <h1>
+                Genres
+            </h1>
+        </div>
+        <div class="container">
+            <h3>Nouveau</h3>
+            <div class="row bg-light text-dark rounded p-3 mx-auto my-3 align-items-center">
+                <form action="" method="post" class="row">
+                    <div class="form-group col-md-4">
+                        <label for="name">Nom du genre*</label>
+                        <input type="text" id="name" name="name" class="form-control" value="<?=$genre->get('name')?>">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" value="Ajouter" class="btn btn-primary mx-auto my-3">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <?php foreach($genres as $genre) : ?>
+        <div class="container">
+            <div class="row bg-light text-dark rounded p-3 mx-auto my-3 align-items-center">
+                <h4> <?= $genre->get('name')  ?></h4>
+                <a href="<?=$router->generateUrl('app_genre_delete',['id' => $genre->get('id')]) ?>"
+                    class="btn btn-danger">Supprimer</a>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</main>
