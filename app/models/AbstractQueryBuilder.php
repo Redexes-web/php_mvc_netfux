@@ -23,6 +23,9 @@ abstract class AbstractQueryBuilder
             case 'create':
                 return $this->buildInsertQuery($tableName, $properties);
                 break;
+            case 'update':
+                return $this->buildInsertQuery($tableName, $properties);
+                break;
             case 'select':
                 return $this->buildSelectQuery($tableName, $properties);
                 break;
@@ -74,7 +77,6 @@ abstract class AbstractQueryBuilder
 
     protected function buildParameterArrayToExecute(array $array): array
     {
-        // Utils::dd($array);
         $res = [];
         foreach ($array as $key => $value) {
             if ($value != null && !is_array($value) && !is_object($value)) {

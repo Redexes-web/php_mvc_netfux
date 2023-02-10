@@ -2,6 +2,8 @@
 
 namespace Lib;
 
+use Exception;
+
 class Utils
 {
     /**
@@ -102,13 +104,17 @@ class Utils
 
     public static function dd($datas)
     {
-        echo ("<pre style='background:black;color:green'>");
-        var_dump($datas);
-        echo ("</pre>");
-        die();
-    }
-    public static function dump($datas)
-    {
+        if(EnvLoader::get("ENV") !== "dev")
+            throw new Exception("Something Wrong Happen");
+            echo ("<pre style='background:black;color:green'>");
+            var_dump($datas);
+            echo ("</pre>");
+            die();
+        }
+        public static function dump($datas)
+        {
+        if(EnvLoader::get("ENV") !== "dev")
+            throw new Exception("Something Wrong Happen");
         echo ("<pre style='background:black;color:green'>");
         var_dump($datas);
         echo ("</pre>");

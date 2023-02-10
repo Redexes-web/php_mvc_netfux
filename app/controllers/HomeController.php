@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\EventModel;
 use App\Models\GenreModel;
 use App\Models\MovieModel;
 use App\Models\UserModel;
 use Lib\Flashbag;
+use Lib\Session;
 use Lib\Utils;
 
 class HomeController  extends AbstractController

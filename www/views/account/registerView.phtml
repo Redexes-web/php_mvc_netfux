@@ -1,58 +1,47 @@
-<main>
-    <h1><?=htmlspecialchars($title)?></h1>
-    <?php if($messages->exist()) : ?>
-    <div class="alert alert-danger col-sm-11 col-md-6 col-lg-6 col-xl-6 mx-auto" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="alert-heading">Des erreurs ont été détéctés</h4>
-        <?php foreach ($messages->getAndDelete() as $error) : ?>
-        <hr>
-        <p><?=$error?></p>
-        <?php endforeach; ?>
-    </div>
-    <?php endif; ?>
-    <div class="row">
-        <div class="col-sm-11 col-md-6 col-lg-6 col-xl-6 mx-auto">
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="fname">Prénom*</label>
-                    <input type="text" id="fname" name="fname" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="lname">Nom*</label>
-                    <input type="text" id="lname" name="lname" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="street">Rue*</label>
-                    <input type="text" id="street" name="street" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="postal_code">Code Postal*</label>
-                    <input type="text" id="postal_code" name="postal_code" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="city">Ville*</label>
-                    <input type="text" id="city" name="city" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="mobile_phone">Téléphone Portable*</label>
-                    <input type="text" id="mobile_phone" name="mobile_phone" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Télephone</label>
-                    <input type="text" id="phone" name="phone" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email*</label>
-                    <input type="email" id="email" name="email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="password">Mot de passe*</label>
-                    <input type="password" id="password" name="password" class="form-control">
-                </div>
-                <input type="submit" value="S'inscrire" class="btn btn-primary">
-            </form>
+<main class="d-flex h-100 text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto mt-5 flex-column">
+        <h1><?=htmlspecialchars($title)?></h1>
+        <?php if($messages->exist()) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading">Des erreurs ont été détéctés</h4>
+            <?php foreach ($messages->getAndDelete() as $error) : ?>
+            <hr>
+            <p><?=$error?></p>
+            <?php endforeach; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+        <div class="row">
+            <div class="col-sm-11 col-md-6 col-lg-4 col-xl-4 mx-auto">
+                <form action="" method="post">
+                    <div class="form-group mt-3">
+                        <label for="fname">Prénom*</label>
+                        <input type="text" id="fname" name="fname" class="form-control mt-2" placeholder="John"
+                            value="<?=isset($registering )? $registering->get("firstName") : ""?>">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="lname">Nom*</label>
+                        <input type="text" id="lname" name="lname" class="form-control mt-2" placeholder="Doe"
+                            value="<?=isset($registering )? $registering->get("lastName") : ""?>">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" name="email" class="form-control mt-2"
+                            placeholder="jdoe@exemple.com"
+                            value="<?=isset($registering )? $registering->get("email") : ""?>">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="password">Mot de passe*</label>
+                        <input type="password" id="password" name="password" class="form-control mt-2"
+                            placeholder="***********">
+                        <small class="float-start mt-1" style="font-size:x-small">* 8 caractères, 1 majuscule, 1
+                            minuscule, 1 caractère spéciale
+                            et 1 chiffre au minimum
+                        </small>
+                    </div>
+                    <input type="submit" value="S'inscrire" class="btn btn-primary my-5 py-2 w-75">
+                </form>
+            </div>
         </div>
     </div>
 </main>

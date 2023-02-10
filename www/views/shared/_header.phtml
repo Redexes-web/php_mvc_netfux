@@ -13,26 +13,23 @@
                         <a class="nav-link" href="<?=$router->generateUrl("app_home_main");?>">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=$router->generateUrl("app_movie_index");?>">Films</a>
+                        <a class="nav-link" href="<?=$router->generateUrl("app_event_index");?>">Évènements</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=$router->generateUrl("app_serie_index");?>">Series</a>
+                        <a class="nav-link" href="<?=$router->generateUrl("app_attendee_index");?>">Participants</a>
                     </li>
                     <?php if($user->exist()) : ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=$router->generateUrl("app_account_logout");?>">Se
                             Déconnecter</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?=$router->generateUrl("app_director_index");?>">Producteurs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?=$router->generateUrl("app_genre_index");?>">Genres</a>
-                    </li>
                     <?php else : ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=$router->generateUrl("app_account_login");?>">Se
                             Connecter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=$router->generateUrl("app_account_register");?>">S'inscrire</a>
                     </li>
                     <?php endif; ?>
             </div>

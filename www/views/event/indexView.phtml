@@ -1,0 +1,63 @@
+<main class="d-flex h-100 text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto mt-5 flex-column">
+        <?php if($messages->exist()) : ?>
+
+        <div class="alert alert-info alert-dismissible fade show col-sm-11 col-md-6 col-lg-6 col-xl-6 mx-auto"
+            role="alert">
+            <h4 class="alert-heading">Info</h4>
+            <?php foreach ($messages->getAndDelete() as $error) : ?>
+            <hr>
+            <p><?=$error?></p>
+            <?php endforeach; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+
+        <div class="px-3">
+            <h1>
+                <?php if($user && $user->get("isAdmin") === true): ?>
+
+                <i class="bi bi-patch-plus-fill"></i>
+
+                <?php endif; ?> Évènements
+            </h1>
+        </div>
+        <div class="container">
+            <div class="row">
+
+                <?php foreach($events as $event) : ?>
+                <div class="col-md-4 text-start">
+                    <div class="row bg-light text-dark rounded p-3 mx-auto my-3 align-items-center">
+                        <h3><?=$event->get('title') ;?></h3>
+                        <p>
+                            <?=$event->get('description') ? $event->get('description') : 'Pas d\'info' ;?>
+                        </p>
+                        <p>
+                            Début: <?=$event->get('startAt')->format("d/m/Y \à H:y") ;?>
+                        </p>
+                        <p>
+                            Fin: <?=$event->get('endAt')->format("d/m/Y \à H:y") ;?>
+                        </p>
+                        <?php if($user->exist() && $user->get("isAdmin") === true): ?>
+                        <div class="col-12 d-flex justify-content-end d-flex">
+
+                            <a class="btn btn-warning "
+                                href="<?=$router->generateUrl('app_event_edit',['id' => $event->get("id")])?>">Modifier</a>
+
+                            <a class="btn btn-danger "
+                                href="<?=$router->generateUrl('app_event_delete',['id' => $event->get("id")])?>">Supprimer</a>
+                        </div>
+                        <?php endif; ?>
+                        <?php if($user->exist()): ?>
+                        <div class="col-12 d-flex justify-content-end d-flex">
+                            <a class="btn btn-primary "
+                                href="<?=$router->generateUrl('app_event_attend',['id' => $event->get("id")])?>">Participer</a>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</main>

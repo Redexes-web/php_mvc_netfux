@@ -24,7 +24,7 @@ class Validation
         'date_dmy'      => '[0-9]{1,2}\-[0-9]{1,2}\-[0-9]{4}',
         'date_ymd'      => '[0-9]{4}\-[0-9]{1,2}\-[0-9]{1,2}',
         'email'         => '[a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}',
-        'password'      => '^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'
+        'password'      => '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@#&`^£$!%*?&]{8,}$'
     );
 
 
@@ -211,7 +211,10 @@ class Validation
     {
         if (!$this->isSuccess()) return $this->errors;
     }
-
+    
+    public function addError(string $error){
+        $this->errors[] = $error;
+    }
 
     public function displayErrors()
     {

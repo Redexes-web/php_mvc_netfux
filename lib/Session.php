@@ -16,13 +16,24 @@ class Session
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-
-        if ($values) {
+        if (is_array($values)) {
             foreach ($values as $varName => $value) {
                 if (!in_array($varName, $keyToAvoid)) {
                     $_SESSION[$this->key][$varName] = $value;
                 }
             }
+        }
+        else if (is_object($values)) {
+            method_exists($values,"toArray") ? $values = $values->toArray() : "";
+            foreach ($values as $varName => $value) {
+                if (!in_array($varName, $keyToAvoid)) {
+                    $_SESSION[$this->key][$varName] = $value;
+                }
+            }
+        }
+        else{
+            if($values != null)
+            $_SESSION[$this->key] = [$values];
         }
     }
 

@@ -1,0 +1,67 @@
+<main class="d-flex h-100 text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto mt-5 flex-column">
+        <?php if($messages->exist()) : ?>
+
+        <div class="alert alert-info alert-dismissible fade show col-sm-11 col-md-6 col-lg-6 col-xl-6 mx-auto"
+            role="alert">
+            <h4 class="alert-heading">Info</h4>
+            <?php foreach ($messages->getAndDelete() as $error) : ?>
+            <hr>
+            <p><?=$error?></p>
+            <?php endforeach; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+
+        <div class="px-3">
+            <h1>
+                <?php if($user): ?>
+                <a style="text-decoration:none" href="<?=$router->generateUrl('app_attendee_new')?>">
+                    <i class="bi bi-patch-plus-fill"></i>
+                </a>
+                <?php endif; ?> Participants
+            </h1>
+        </div>
+        <div class="container">
+            <div class="row">
+
+                <?php foreach($attendees as $attendee) : ?>
+                <div class="col-md-4 text-start">
+                    <div class="row bg-light text-dark rounded p-3 mx-auto my-3 align-items-center">
+                        <a class="nav-link"
+                            href="<?=$router->generateUrl('app_attendee_show', ['id' => $attendee->get('id')])?>">
+                            <h3 class="display-6"><?=$attendee->get('firstName') . " " . $attendee->get('lastName')?>
+                            </h3>
+                        </a>
+                        <p>Email:
+                            <?=$attendee->get('email')?>
+                        </p>
+                        <p>
+                            Téléphone:
+                            <?=$attendee->get('phone') ? $attendee->get('phone') : 'Inconnu'?>
+                        </p>
+                        <p>
+                            Specialité:
+                            <?=$attendee->get('speciality') ? $attendee->get('speciality')->get('name') : 'Inconnu'?>
+                        </p>
+                        <p>
+                            Date de naissance:
+                            <?=$attendee->get('birthdayAt')? $attendee->get('birthdayAt')->format('d/m/Y'): "Inconnue"?>
+                        </p>
+                        <?php if($user->exist()): ?>
+                        <div class="col-12 d-flex justify-content-end d-flex">
+
+                            <a class="btn btn-warning "
+                                href="<?=$router->generateUrl('app_attendee_edit',['id' => $attendee->get("id")])?>">Modifier</a>
+
+                            <a class="btn btn-danger "
+                                href="<?=$router->generateUrl('app_attendee_delete',['id' => $attendee->get("id")])?>">Supprimer</a>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</main>

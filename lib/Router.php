@@ -16,85 +16,70 @@ class Router
             'method'     => 'main',
             'name'       => 'app_home_main',
         ],
+        '/register' => [
+            'controller' => 'Account',
+            'method'     => 'register',
+            'name'       => 'app_account_register',
+        ],
         '/login' => [
             'controller' => 'Account',
             'method'     => 'login',
             'name'       => 'app_account_login',
+        ],
+        '/profile' => [
+            'controller' => 'Account',
+            'method'     => 'profile',
+            'name'       => 'app_account_profile',
+        ],
+        '/profile/edit' => [
+            'controller' => 'Account',
+            'method'     => 'edit',
+            'name'       => 'app_account_edit',
         ],
         '/logout' => [
             'controller' => 'Account',
             'method'     => 'logout',
             'name'       => 'app_account_logout',
         ],
-        '/films' => [
-            'controller' => 'Movie',
+        '/events' => [
+            'controller' => 'Event',
             'method'     => 'index',
-            'name'       => 'app_movie_index',
+            'name'       => 'app_event_index',
         ],
-        '/film/new' => [
-            'controller' => 'Movie',
+        '/event/new' => [
+            'controller' => 'Event',
+            'method'     => 'new',
+            'name'       => 'app_event_new',
+        ],
+        '/event/attend' => [
+            'controller' => 'Event',
+            'method'     => 'attend',
+            'name'       => 'app_event_attend',
+        ],
+        '/attendee/new' => [
+            'controller' => 'Attendee',
             'method'     => 'add',
-            'name'       => 'app_movie_new',
+            'name'       => 'app_attendee_new',
         ],
-        '/film/show' => [
-            'controller' => 'Movie',
-            'method'     => 'show',
-            'name'       => 'app_movie_show',
-        ],
-        '/film/edit' => [
-            'controller' => 'Movie',
-            'method'     => 'add',
-            'name'       => 'app_movie_edit',
-        ],
-        '/film/delete' => [
-            'controller' => 'Movie',
-            'method'     => 'delete',
-            'name'       => 'app_movie_delete',
-        ],
-        '/series' => [
-            'controller' => 'Serie',
+        '/attendees' => [
+            'controller' => 'Attendee',
             'method'     => 'index',
-            'name'       => 'app_serie_index',
+            'name'       => 'app_attendee_index',
         ],
-        '/serie/show' => [
-            'controller' => 'Serie',
-            'method'     => 'show',
-            'name'       => 'app_serie_show',
-        ],
-        '/serie/new' => [
-            'controller' => 'Serie',
-            'method'     => 'add',
-            'name'       => 'app_serie_new',
-        ],
-        '/serie/edit' => [
-            'controller' => 'Serie',
-            'method'     => 'add',
-            'name'       => 'app_serie_edit',
-        ],
-        '/serie/delete' => [
-            'controller' => 'Serie',
-            'method'     => 'delete',
-            'name'       => 'app_serie_delete',
-        ],
-        '/directors' => [
-            'controller' => 'Director',
+        '/attendee/show' => [
+            'controller' => 'Attendee',
             'method'     => 'index',
-            'name'       => 'app_director_index',
+            'name'       => 'app_attendee_show',
         ],
-        '/director/delete' => [
-            'controller' => 'Director',
+        '/attendee/edit' => [
+            'controller' => 'Attendee',
+            'method'     => 'add',
+            'name'       => 'app_attendee_edit',
+        ],
+        '/attendee/delete' => [
+            'controller' => 'Attendee',
             'method'     => 'delete',
-            'name'       => 'app_director_delete',
-        ],
-        '/genres' => [
-            'controller' => 'Genre',
-            'method'     => 'index',
-            'name'       => 'app_genre_index',
-        ],
-        '/genre/delete' => [
-            'controller' => 'Genre',
-            'method'     => 'delete',
-            'name'       => 'app_genre_delete',
+            'name'       => 'app_attendee_delete',
         ],
         '/500' => [
             'controller' => 'Error',

@@ -10,4 +10,5 @@ interface EntityInterface
     public function set($name, $value): self;
     const MANY_TO_ONE = [];
     const ONE_TO_MANY = [];
+    const MANY_TO_MANY = [];
 }

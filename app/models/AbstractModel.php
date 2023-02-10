@@ -55,7 +55,7 @@ abstract class AbstractModel extends AbstractQueryBuilder implements ModelInterf
     {
         $entityName = $entityName ?? $this->entityName;
         $tmpEntityNameArray = explode('\\', $entityName);
-        $tableName = strtolower(end($tmpEntityNameArray));
+        $tableName = Utils::camelCaseToSnakeCase(end($tmpEntityNameArray));
         $req = $this->db->prepare($this->buildQuery('select', $tableName, $parameters));
         $req->execute($this->buildParameterArrayToExecute($parameters));
         $queryResults = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -92,7 +92,7 @@ abstract class AbstractModel extends AbstractQueryBuilder implements ModelInterf
         $entityName = end($classArray);
         $tableName =  Utils::camelCaseToSnakeCase(lcfirst($entityName));
         $query = $this->buildQuery('create', $tableName, $propertyArray);
-        // Utils::dd($query);
+
         $req = $this->db->prepare($query);
         $req->execute($this->buildParameterArrayToExecute($propertyArray));
         return $this->db->lastInsertId();
@@ -125,6 +125,9 @@ abstract class AbstractModel extends AbstractQueryBuilder implements ModelInterf
     protected function getArrayFromEntity(EntityInterface $entity)
     {
         $array = [];
+        if(method_exists($entity, 'toArray')){
+            $entity = $entity->toArray();
+        }
         foreach ($entity as $property => $value) {
             if (substr($property, -2) === "At") {
                 if (is_string($value)) {

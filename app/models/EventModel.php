@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Entity\Attendee;
+use App\Entity\Event;
 
-class AttendeeModel extends AbstractModel
+class EventModel extends AbstractModel
 {
     public function __construct()
     {
-        $this->entityName = Attendee::class;
+        $this->entityName = Event::class;
         parent::__construct();
     }
 }
